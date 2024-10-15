@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-
+import GenderCheckbox from "../component/GenderCheckbox"
 import { Link } from "react-router-dom"
-//import useSignup from "../hooks/useSignup"
+import useSignup from "../hooks/useSignup"
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -12,17 +12,17 @@ const SignUp = () => {
     gender: "",
   })
 
-  //const { loading, signup } = useSignup()
+  const { loading, signup } = useSignup()
 
   const handleCheckboxChange = (gender) => {
     setFormData({ ...formData, gender })
   }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-  //   await signup(formData)
-  // }
+    await signup(formData)
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -32,7 +32,7 @@ const SignUp = () => {
           <span className="text-blue-700"> Chat Application</span>
         </h1>
 
-        <form >
+        <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text">Username</span>
@@ -44,7 +44,9 @@ const SignUp = () => {
               className="w-full input input-bordered h-10"
               value={formData.username}
               onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value })
+                setFormData(prevState =>{
+                  return { ...prevState, username: e.target.value}
+                })
               }
             />
           </div>
@@ -97,10 +99,10 @@ const SignUp = () => {
             />
           </div>
 
-          {/* <GenderCheckbox
+          <GenderCheckbox
             onCheckboxChange={handleCheckboxChange}
             selectedGender={formData.gender}
-          /> */}
+          />
 
           <Link
             to={"/login"}
