@@ -44,9 +44,7 @@ const SignUp = () => {
               className="w-full input input-bordered h-10"
               value={formData.username}
               onChange={(e) =>
-                setFormData(prevState =>{
-                  return { ...prevState, username: e.target.value}
-                })
+                setFormData({ ...formData, username: e.target.value })
               }
             />
           </div>
@@ -114,8 +112,13 @@ const SignUp = () => {
           <div>
             <button
               className="btn btn-block btn-sm mt-2 bg-blue-700 font-bold text-white"
+              disabled={loading}
             >
-              Sign Up
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </div>
         </form>
