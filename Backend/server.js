@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
+import {server, app} from "./socket/socket.js"
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL).then( ()=>{
@@ -11,7 +13,7 @@ mongoose.connect(process.env.MONGO_URL).then( ()=>{
     console.log(err);
 })
 
-const app = express();
+// const app = express();
 
 const PORT = process.env.PORT || 3000;
 
@@ -35,7 +37,7 @@ app.use("/api/messages", messageRoute)
 app.use("/api/users", userRoute)
 
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("server is running " + PORT);
 });
 
