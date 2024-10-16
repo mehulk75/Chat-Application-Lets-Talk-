@@ -17,7 +17,7 @@ export const getReceiverSocketId = (receiverId) => {
   return userSocketMap[receiverId]
 }
 
-const userSocketMap = {}
+const userSocketMap = {}  // userId: SocketId
 
 io.on("connection", (socket) => {
   console.log("a user connected", socket.id)
@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
     userSocketMap[userId] = socket.id
   }
 
-  // io.emit  events send to all the connected clients
+  // io.emit send event to all the connected clients
   io.emit("getOnlineUsers", Object.keys(userSocketMap))
 
   socket.on("disconnect", () => {
