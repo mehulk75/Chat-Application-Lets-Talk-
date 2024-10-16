@@ -1,24 +1,24 @@
 import React, { useState } from "react"
 import { BsSend } from "react-icons/bs"
-// import useSendMessage from "../../hooks/useSendMessage"
+import useSendMessage from "../../hooks/useSendMessage"
 
 const MessageInput = () => {
   const [message, setMessage] = useState("")
-//   const { loading, sendMessage } = useSendMessage()
+  const { loading, sendMessage } = useSendMessage()
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-//     if (!message) {
-//       return
-//     }
+    if (!message) {
+      return
+    }
 
-//     await sendMessage(message)
-//     setMessage("")
-//   }
+    await sendMessage(message)
+    setMessage("")
+  }
 
   return (
-    <form className="px-4 my-3" >
+    <form className="px-4 my-3" onSubmit={handleSubmit}>
       <div className="w-full relative">
         <input
           type="text"
@@ -32,7 +32,11 @@ const MessageInput = () => {
           type="submit"
           className="absolute inset-y-0 end-0 flex items-center pe-3"
         >
-          <BsSend/>
+          {loading ? (
+            <div className="loading loading-spinner"></div>
+          ) : (
+            <BsSend />
+          )}
         </button>
       </div>
     </form>
